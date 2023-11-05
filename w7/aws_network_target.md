@@ -11,3 +11,7 @@
 ## Level 3 (Mid-level)
 **Task:** Add NAT Gateway, Route Tables, and set up a basic security group.  
 **Objective:** Master complex, real-world AWS networking setups.
+
+## Level Challenge
+**Task:** Set it up with automation tool instead of manual way.  
+**Objective:** Master complex, real-world AWS networking setups with automation tool.
