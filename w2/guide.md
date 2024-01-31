@@ -134,36 +134,6 @@ Replace `YOUR-BUCKET-NAME` with the actual name of your S3 bucket.
 3. Your browser should now display the static website hosted on your S3 bucket. If it does not, confirm that you have set up the S3 bucket and Route 53 records correctly, and that you have given sufficient time for DNS propagation.
 
 ## Level 3 (Mid-level)
+### Task: let HTTPS works
 
-#### Step 8: SSL/TLS Certificate for Secure HTTP (HTTPS)
-If you want your static website to use HTTPS, you will need to obtain an SSL/TLS certificate and use additional services like AWS CloudFront or AWS Certificate Manager. Here are the high-level steps:
-
-1. Request a certificate with AWS Certificate Manager (ACM) for your domain.
-2. Use the DNS validation option in ACM and follow the instructions to add the CNAME records to your Route 53 hosted zone.
-3. Once the certificate is issued, create a CloudFront distribution.
-4. Specify your S3 bucket as the origin.
-5. Choose the SSL/TLS certificate from ACM for the "Viewer Certificate" setting.
-6. Set the "Alternate Domain Names (CNAMEs)" field to your domain name (e.g., www.example.com).
-7. Select "Redirect HTTP to HTTPS" to ensure secure connections.
-8. In the "Distribution Settings," set the "Default Root Object" to your index document (e.g., "index.html").
-9. Click "Create Distribution".
-10. After the CloudFront distribution is created, take note of the distribution's domain name.
-
-#### Step 9: Update Route 53 to Point to CloudFront Distribution
-1. Go back to the Route 53 console and navigate to your hosted zone.
-2. Click on the existing A record you created for your domain.
-3. Click "Edit".
-4. Change the "Alias to" target to point to your CloudFront distribution domain name.
-5. Save the changes.
-
-#### Step 10: Test the Secure Connection
-1. Once the CloudFront distribution is deployed and the DNS changes have propagated:
-2. Open a web browser.
-3. Enter your domain name with the "https://" prefix.
-4. Your browser should now load the static website with a secure connection.
-
-Ref to https://repost.aws/knowledge-center/cloudfront-https-requests-s3
-
-Remember that DNS changes may take some time to propagate. If the website doesn't load immediately, you may need to wait and try again later. It's also a good idea to clear your browser's cache or use a different browser to check if the issue is related to caching.
-
-By following these steps, you've set up a static website with AWS using S3, Route 53, ACM, and CloudFront that is accessible via a custom domain and secured with HTTPS. As an IT tutor teaching AWS skills, you should ensure that your students understand each step and the purpose behind it, as well as how these services work together to provide a scalable, reliable, and secure web hosting solution.
+You can try to follow up with https://docs.aws.amazon.com/AmazonS3/latest/userguide/website-hosting-custom-domain-walkthrough.html
