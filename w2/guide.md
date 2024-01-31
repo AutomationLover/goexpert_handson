@@ -1,93 +1,169 @@
-# Week 2: Manual Deploy Frontend - CDN + Route 53 + ACM
+# Week 2: Manual Deploy Statistic Website
 
 ## Level 1 (Intern)
-**Task**: Set up a GitHub account and understand basic git commands. Create SSH keys and link them to GitHub.
 
-**Objective**: Gain a foundational understanding of Git and SSH.
+### Task: Create an S3 bucket and upload a simple HTML file. 
 
-### Step by Step Guide:
+#### Step 1: Create an S3 Bucket
+1. Go to the S3 service in AWS Console.
+2. Click "Create Bucket", give it a unique name and select your preferred region.
+3. Leave the rest as default and click "Create".
 
-1. **Set up a GitHub account**
-    - Go to [GitHub](https://github.com/)
-    - Click on `Sign up`
-    - Fill out the form and click `Create an account`
+#### Step 2: Upload a HTML file
+Here's a simple "Hello World" HTML file: 
+```html
+<!DOCTYPE html>
+<html>
+<body>
 
-2. **Understand basic git commands**
-    - `git init`: Initializes a new Git repository
-    - `git clone [url]`: Clones a repository into a new directory
-    - `git add [file]`: Adds a file to the staging area
-    - `git commit -m "[message]"`: Commits your files, adding the message "[message]"
-    - `git push [alias] [branch]`: Pushes your changes to a remote repository
-    - `git pull`: Updates your local repo with the remote repo
+<h1>Hello World</h1>
 
-3. **Create SSH Keys and link them to GitHub**
-    - Open your terminal and enter `ssh-keygen -t rsa -b 4096 -C " "your_email@example.com"`
-    - This will start the process of generating the SSH keys. When asked to enter a file to save the key, press Enter to use the default location.
-    - Next, you'll be asked to enter a passphrase. Enter a secure one and remember it.
-    - Go to your GitHub account, click on your profile picture and go to `Settings`.
-    - Click on `SSH and GPG keys` and then `New SSH key`.
-    - Copy the SSH key you generated. You can do this by running `cat ~/.ssh/id_rsa.pub` in your terminal.
-    - Paste the copied key into the `Key` field on GitHub and click `Add SSH key`.
+</body>
+</html>
+```
+1. Save this as `index.html`.
+2. Go to your S3 bucket and click "Upload".
+3. Choose the `index.html` file and click "Upload".
 
-4. **Use the SSH key from CLI**
-    - To confirm that your SSH key is working correctly, try to SSH to GitHub by running `ssh -T git@github.com` in your terminal.
-    - If you see a message like "Hi [your_username]! You've successfully authenticated...", then your SSH key is working correctly.
+#### Step 3: Set permissions to allow public view
+1. Click on your `index.html` file in the S3 bucket.
+2. Go to the "Permissions" tab.
+3. Click "Edit", uncheck "Block all public access", and save.
+
+#### Step 4: Set up Route53 A record to point to S3
+1. Go to Route53 service in AWS Console.
+2. Create a new Hosted Zone with your domain.
+3. Create a new record set, choose type "A - IPV4 address".
+4. Set the Alias target to your S3 bucket's website endpoint.
+
+## Level 1 (Option)
+### Task: Configure permissions and versioning for the S3 bucket.
+
+#### Step 1: Set up versioning
+1. Go to your S3 bucket.
+2. Click on the "Properties" tab.
+3. Scroll down to the "Versioning" section and click "Edit".
+4. Check "Enable versioning" and save.
+
+#### Step 2: Update S3 bucket file content
+1. Create a new `index.html` file with different content.
+2. Upload this new file to the S3 bucket. It should have the same name as the previous file.
+3. The new file becomes the current version.
+
+#### Step 3: Restore from a previous version in S3
+1. Click on the file in the S3 bucket.
+2. Click on the "Versioning" tab.
+3. You will see multiple versions of the file.
+4. Choose the version you want to restore and click "Actions".
+5. Click "Make this the current version".
+6. The selected version is now restored and becomes the current version.
+
 
 ## Level 2 (Junior)
-**Task**: Manually connect an S3-hosted website to a CDN.
 
-**Objective**: Understand CDN integrations.
+### Task: Setup Route53 Records for a Static Web Page Hosted in an S3 Bucket
 
-### Step by Step Guide:
+Before setting up Route53 records, make sure you have a static web page hosted on an S3 bucket with Static Website Hosting enabled, and you have registered a domain with Route 53 or another domain registrar.
 
-1. **Host your website on S3**
-   - Navigate to the AWS S3 console and create a new bucket with the name of your website, for example, "www.mywebsite.com".
-   - Upload your website files to this bucket and make them public.
-   - Enable static website hosting for your bucket. In the bucket properties, click on `Static website hosting`, select `Use this bucket to host a website` and specify your `index.html` as the Index document.
-   
-2. **Create a CloudFront distribution**
-   - Go to the CloudFront console and click on `Create Distribution`. 
-   - In the Origin Settings, select your S3 bucket as the `Origin Domain Name`.
-   - In Default Cache Behavior Settings, select `Redirect HTTP to HTTPS` for Viewer Protocol Policy.
-   - In the Distribution Settings, select `Price Class` based on your needs.
-   - Set the `Alternate Domain Names (CNAMEs)` to your website domain (for example, "www.mywebsite.com").
-   - Click on `Create Distribution`.
+#### Step 1: Enable Static Website Hosting on S3
+1. Go to the Amazon S3 service in the AWS Management Console.
+2. Click on the bucket that you want to use for your static website.
+3. Navigate to the "Properties" tab.
+4. Scroll down to the "Static website hosting" section and click "Edit".
+5. Select "Enable" for Static website hosting.
+6. Fill in the "Index document" field with the name of your index file (e.g., "index.html").
+7. Optionally, set an "Error document" that will be returned when an error occurs.
+8. Click "Save changes".
 
-3. **Test from EC2s from different regions**
-   - Create EC2 instances in different regions and try to access your website via the CloudFront distribution domain name. If the website loads correctly, your CDN setup is successful.
+#### Step 2: Configure Bucket Policy to Allow Public Read Access
+1. Still in your bucket, go to the "Permissions" tab.
+2. Click "Bucket Policy".
+3. Enter a policy that grants public read access to the bucket. Here is an example policy:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::YOUR-BUCKET-NAME/*"
+    }
+  ]
+}
+```
+
+Replace `YOUR-BUCKET-NAME` with the actual name of your S3 bucket.
+
+4. Click "Save" to apply the bucket policy.
+
+#### Step 3: Register a Domain with Route 53 (Skip if you already have a domain)
+1. Go to the Route 53 service in the AWS Management Console.
+2. In the "Domain Registration" section, click "Register Domain".
+3. Search for the domain name you want and follow the prompts to register it.
+
+#### Step 4: Create Hosted Zone in Route 53
+1. In the Route 53 dashboard, click on "Hosted zones".
+2. Click "Create hosted zone".
+3. Enter your registered domain name in the "Domain Name" field.
+4. Choose "Public Hosted Zone" for the type.
+5. Click "Create".
+
+#### Step 5: Set Up Route 53 Records for Your Domain
+1. After creating your hosted zone, you will be taken to its management page.
+2. Click "Create Record".
+3. In the "Record name" field, specify the subdomain if required (e.g., www), or leave it blank for the root domain.
+4. Set the "Record type" to "A – Routes traffic to an IPv4 address and some AWS resources".
+5. Select the "Alias" toggle to "Yes".
+6. In the "Alias to S3 website endpoint" section, choose the region where your S3 bucket is hosted and then select the bucket from the dropdown list.
+7. Click "Create records".
+
+#### Step 6: Update Name Servers for Your Domain (if using third-party registrar)
+1. If you registered your domain with Route 53, it will automatically use AWS name servers. Skip to the next step.
+2. If you're using a third-party domain registrar, log in to your account there.
+3. Navigate to the section where you can set or update the domain's name servers.
+4. Replace the current name servers with the ones provided by AWS in the Route 53 hosted zone you created. There are typically 4 name servers to update.
+5. Save changes on your registrar's website. It may take up to 48 hours for the new name servers to propagate and for your DNS changes to take effect globally.
+
+
+#### Step 7: Verify the Domain Points to Your S3 Bucket
+1. Once the DNS changes have propagated, open a web browser.
+2. Type your domain name into the address bar, and press Enter.
+3. Your browser should now display the static website hosted on your S3 bucket. If it does not, confirm that you have set up the S3 bucket and Route 53 records correctly, and that you have given sufficient time for DNS propagation.
 
 ## Level 3 (Mid-level)
-**Task**: Add a custom domain with Route 53 and HTTPS via ACM.
 
-**Objective**: Complete a real-world static site setup.
+#### Step 8: SSL/TLS Certificate for Secure HTTP (HTTPS)
+If you want your static website to use HTTPS, you will need to obtain an SSL/TLS certificate and use additional services like AWS CloudFront or AWS Certificate Manager. Here are the high-level steps:
 
-### Step by Step Guide:
+1. Request a certificate with AWS Certificate Manager (ACM) for your domain.
+2. Use the DNS validation option in ACM and follow the instructions to add the CNAME records to your Route 53 hosted zone.
+3. Once the certificate is issued, create a CloudFront distribution.
+4. Specify your S3 bucket as the origin.
+5. Choose the SSL/TLS certificate from ACM for the "Viewer Certificate" setting.
+6. Set the "Alternate Domain Names (CNAMEs)" field to your domain name (e.g., www.example.com).
+7. Select "Redirect HTTP to HTTPS" to ensure secure connections.
+8. In the "Distribution Settings," set the "Default Root Object" to your index document (e.g., "index.html").
+9. Click "Create Distribution".
+10. After the CloudFront distribution is created, take note of the distribution's domain name.
 
-1. **Register a domain in Route 53**
-   - Go to the Route 53 console and click on `Domain Registration`.
-   - Click on `Register Domain`.
-   - Follow the steps to register your domain.
+#### Step 9: Update Route 53 to Point to CloudFront Distribution
+1. Go back to the Route 53 console and navigate to your hosted zone.
+2. Click on the existing A record you created for your domain.
+3. Click "Edit".
+4. Change the "Alias to" target to point to your CloudFront distribution domain name.
+5. Save the changes.
 
-2. **Create a hosted zone**
-   - In the Route 53 console, go to `Hosted zones` and click on `Create Hosted Zone`.
-   - Enter your domain name and click on `Create`.
+#### Step 10: Test the Secure Connection
+1. Once the CloudFront distribution is deployed and the DNS changes have propagated:
+2. Open a web browser.
+3. Enter your domain name with the "https://" prefix.
+4. Your browser should now load the static website with a secure connection.
 
-3. **Create record sets**
-   - In the `Hosted zones` details page, click on `Create Record Set`.
-   - Leave the name blank and select `Type` as `A - IPv4 address`.
-   - For `Alias`, choose `Yes` and in `Alias Target`, select the CloudFront distribution that you created earlier.
-   - Click `Create`.
+Ref to https://repost.aws/knowledge-center/cloudfront-https-requests-s3
 
-4. **Request a certificate in ACM**
-   - Go to the Amazon Certificate Manager console and click on `Request a certificate`.
-   - Enter your domain name and click `Review and request`.
-   - Follow the steps to validate your domain.
-   - Once your domain is validated, the status of your certificate will change to `Issued`.
+Remember that DNS changes may take some time to propagate. If the website doesn't load immediately, you may need to wait and try again later. It's also a good idea to clear your browser's cache or use a different browser to check if the issue is related to caching.
 
-5. **Add HTTPS to the CloudFront distribution**
-   - Go back to your CloudFront distribution settings.
-   - Click on `Edit`.
-   - In `SSL Certificate`, select `Custom SSL Certificate` and choose the certificate you created in ACM.
-   - Click on `Yes, Edit`.
-
-Now you have a static website hosted on S3, served via a CloudFront distribution, with a custom domain from Route 53 and HTTPS via ACM. You can access your website using your custom domain.
+By following these steps, you've set up a static website with AWS using S3, Route 53, ACM, and CloudFront that is accessible via a custom domain and secured with HTTPS. As an IT tutor teaching AWS skills, you should ensure that your students understand each step and the purpose behind it, as well as how these services work together to provide a scalable, reliable, and secure web hosting solution.

@@ -1,13 +1,14 @@
-## Week 2: Manual Deploy Frontend - CDN + Route 53 + ACM 
+## Week 2: Manual Deploy Frontend 
 
 ### Level 1 (Intern)
-**Task:** Set up a GitHub account and understand basic git commands. Create SSH keys and link them to GitHub.  
-**Objective:** Gain a foundational understanding of Git and SSH.
+**Task:** Create an S3 bucket and upload a simple HTML file, and configure permissions for the S3 bucket. 
+**Objective:** Learn the ropes of S3-based web hosting.
 
 ### Level 2 (Junior)
-**Task:** Manually connect an S3-hosted website to a CDN.  
-**Objective:** Understand CDN integrations.
+**Task:** Add a custom domain with Route 53.  
+**Objective:** Complete a real-world static site setup.
 
 ### Level 3 (Mid-level)
-**Task:** Add a custom domain with Route 53 and HTTPS via ACM.  
-**Objective:** Complete a real-world static site setup.
+**Task:** Apply ACM for HTTPS.  
+**Objective:** Learn HTTP/HTTPS, familiar with CDN and ACM.
+ 

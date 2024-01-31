@@ -1,13 +1,13 @@
-## Week 1: Manual Deploy Frontend
+## Week 1: Setup AWS Account
 
 ### Level 1 (Intern)
-**Task:** Set up an AWS account, understand the AWS Management Console layout and set up an IAM user  
-**Objective:** Familiarise yourself with AWS basics.
+**Task:** Set up an AWS account, understand the AWS Management Console layout, Set up an IAM user for console user  
+**Objective:** Familiarise yourself with AWS console.
 
 ### Level 2 (Junior)
-**Task:** Create an S3 bucket and upload a simple HTML file.  
-**Objective:** Learn the ropes of S3-based web hosting.
+**Task:** Install AWS CLI, create IAM user one for AWS CLI. Install AWS CLI. 
+**Objective:** Make yourself ready with AWS CLI.
 
 ### Level 3 (Mid-level)
-**Task:** Configure permissions and versioning for the S3 bucket.  
-**Objective:** Apply S3 best practices.
+**Task:** Practice some AWS CLI.  
+**Objective:** Learn some basic AWS CLI.
