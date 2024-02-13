@@ -1,81 +1,96 @@
-# CI/CD Pipeline - Introduction 
+# Week 3: Deploy Statistic webpage with CICD
 
 ## Level 1 (Intern)
-Task: Clone a sample repository from GitHub. Learn to create a new branch and push changes.
-Objective: Basic hands-on with Git and GitHub.
+**Task**: Create CodeCommit repository
 
-Steps:
+**Objective**: Understand how to set up a CodeCommit repository
 
-```markdown
-1. Open your terminal or command prompt.
-2. Navigate to the directory where you want to clone the repository.
-3. Run the following command: `git clone https://github.com/username/repository.git` (replace the URL with the GitHub repository URL you want to clone).
-4. To create a new branch, use the command: `git checkout -b branch-name` (replace `branch-name` with the name you want to give to your new branch).
-5. Make your changes in the files.
-6. Stage your changes by using: `git add .`
-7. Commit your changes by using: `git commit -m "commit message"` (replace `commit message` with a brief description of your changes).
-8. Push your changes to the remote repository by using: `git push origin branch-name`.
-```
----
+### Step by Step Guide:
+
+1. **Create a CodeCommit repository**
+    - Go to the AWS Management Console and open the CodeCommit console at https://console.aws.amazon.com/codecommit/.
+    - Choose `Create repository`.
+    - In `Repository name`, enter a name for your repository.
+    - (Optional) In `Description`, enter a description for your repository.
+    - Choose `Create`.
+2. **Create Git Crednetial**
+    - Service `User` -> your admin account -> Security credentials -> HTTPS Git credentials for AWS CodeCommit 
+3. **Clone the repository**
+    - On the `Repositories` page, choose the name of the repository you want to clone.
+    - Choose `Clone URL`, and then choose `Clone HTTPS`.
+    - Open a terminal and navigate to the local directory where you want to clone the repository.
+    - Run the `git clone` command followed by the HTTPS URL you copied. For example, `git clone https://git-codecommit.us-east-2.amazonaws.com/v1/repos/MyDemoRepo` and input the username and password created in previous step.
 
 ## Level 2 (Junior)
-Task: Set up a basic CI pipeline to validate the code and commit the changes. Objective: Implement CI basics for the frontend or the backend.
+**Task**: Build pipeline to push updated index.html file to bucket www.yourdomain.click via git push
 
+**Objective**: Understand how to use CodePipeline to automate the deployment process.
 
-Steps:
+### Step by Step Guide:
 
-```markdown
-1. Navigate to your GitHub repository.
-2. Click on the 'Actions' tab at the top of your repository.
-3. Click on 'set up a workflow yourself'.
-4. Add the following steps to your workflow file:
+1. **Create a CodePipeline**
+    - Go to the AWS Management Console and open the CodePipeline console at https://console.aws.amazon.com/codepipeline/.
+    - Choose `Create pipeline`.
+    - In `Pipeline name`, enter a name for your pipeline.
+    - Choose `Next`.
 
-```
-```yaml
-# This is a basic workflow to help you get started with Actions
+2. **Configure the source stage**
+    - In `Source provider`, choose `AWS CodeCommit`.
+    - In `Repository name`, choose the name of your CodeCommit repository.
+    - In `Branch name`, choose the name of the branch `main` that you want the pipeline to use.
+    - Choose `Next`.
 
-name: CI
+3. **Skip the build stage**
+    - Choose `Skip build stage`.
+    - In the warning message that's displayed, choose `Skip`.
 
-# Controls when the action will run. 
-on:
-  # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+4. **Configure the deploy stage**
+    - In `Deploy provider`, choose `Amazon S3`.
+    - In `Bucket`, choose the name of the S3 bucket where your index.html file is stored.
+    - Choose `Next`.
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+5. **Review the pipeline**
+    - Review the details of your pipeline.
+    - Choose `Create pipeline`.
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2```
-```markdown
-5. After editing the workflow, click on 'Start commit' at the top right corner.
-6. Enter your commit message and select whether to commit directly to the master branch or create a new branch and start a pull request. Click on 'Commit new file' to finalize your setup.
-```
----
+6. **Push changes to the CodeCommit repository**
+    - Navigate to your local project directory.
+    - Make some changes to your index.html file.
+    - Use `git add` to stage the changes, `git commit -m "Your message"` to commit the changes, and `git push` to push the changes to your CodeCommit repository.
+    - Once the changes are pushed, your pipeline will automatically start and deploy the updated index.html file to your S3 bucket.
 
 ## Level 3 (Mid-level)
-Task: Set up a Jenkins server on a cloud and a DNS.
-Objective: Prepare for advanced CI/CD configurations.
+**Task**: Add a testing phase in your pipeline to validate your changes before the deployment.
 
-Steps:
+**Objective**: Understand how to add a testing phase in the CodePipeline.
 
-```markdown
-1. Create an account on a cloud service provider (like AWS, Google Cloud, etc).
-2. Create a new instance (VM) on your cloud provider.
-3. Install Jenkins on your instance. You can do this by SSH into your instance and run the command `sudo apt install jenkins`.
-4. Open the Jenkins UI by entering your instance's IP address followed by :8080 in your browser (e.g., 192.168.1.2:8080).
-5. Complete the Jenkins installation by following the prompts.
-6. To set up a DNS, go to your DNS provider (like GoDaddy, Namecheap, etc) and create a new A Record with your instance's public IP address.
-```
-Please note: The detail of each step may vary based on the cloud service provider and DNS provider you choose. Always refer to the official documentation of your chosen providers for specific instructions.
+### Step by Step Guide:
+
+1. **Create a CodeBuild project**
+    - Go to the AWS Management Console and open the CodeBuild console at https://console.aws.amazon.com/codebuild/.
+    - Choose `Create project`.
+    - In `Project name`, enter a name for your project.
+    - In `Source`, select `AWS CodeCommit` and choose your repository.
+    - In `Environment`, choose a managed image and select the `Ubuntu` operating system, `Standard` runtime, and `aws/codebuild/standard:4.0` image.
+    - In `Buildspec`, choose 'Use a buildspec file', and in your repository, include a buildspec file that contains commands to validate your index.html file.
+    - Choose `Create build project`.
+
+2. **Add the build stage to your pipeline**
+    - Go to the CodePipeline console at https://console.aws.amazon.com/codepipeline/.
+    - Choose the name of your pipeline.
+    - Choose `Edit`.
+    - In the pipeline structure area, choose `+ Add stage`, and then enter a name for the stage.
+    - In the new stage, choose `+ Add action group`.
+    - In the `Add action` dialog box, in `Action name`, enter a name.
+    - In `Action provider`, choose `AWS CodeBuild`.
+    - In `Input artifacts`, choose `SourceArtifact`.
+    - In `Project name`, choose the name of your CodeBuild project.
+    - Choose `Done`.
+
+3. **Update the deploy stage**
+    - In the deploy stage of your pipeline, for `Input artifacts`, choose `BuildArtifact`.
+
+4. **Save your pipeline**
+    - Choose `Done`, and then choose `Save`.
+
+Now, whenever you push changes to your CodeCommit repository, your pipeline starts automatically. The pipeline fetches the latest version of your index.html file, validates it using the commands in your buildspec file, and if the validation is successful, it deploys the index.html file to your S3 bucket.
