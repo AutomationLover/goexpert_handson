@@ -32,28 +32,18 @@
 
 1. **Create a Dockerfile**
     - Create a file named Dockerfile in your application directory.
-    - Fill it with instructions to build your Docker image. A simple Node.js app's Dockerfile might look like this:
-
-    ```
-    FROM node:14
-    WORKDIR /usr/src/app
-    COPY package*.json ./
-    RUN npm install
-    COPY . .
-    EXPOSE 8080
-    CMD [ "node", "server.js" ]
-    ```
+    - Fill it with instructions to build your Docker image. A simple Node.js app's Dockerfile might look like https://github.com/AutomationLover/website-visit-count/blob/main/Dockerfile
 
 2. **Build the Docker Image**
     - Run the command: `docker build -t <image-name> .`.
     - For example, to build an image named my-app, run `docker build -t my-app .`.
+    - Following steps https://github.com/AutomationLover/website-visit-count/blob/main/README.md 
 
-3. **Push the Docker Image to AWS ECR**
-    - Install the AWS CLI and configure it with your AWS credentials.
-    - Create a repository in AWS ECR.
-    - Authenticate Docker to your ECR registry with the command: `aws ecr get-login-password --region <region> | docker login --username AWS --password-stdin <your-ecr-repository-url>`
-    - Tag your image to match your repository name: `docker tag <image-name>:<tag> <your-ecr-repository-url>`
-    - Push your image with: `docker push <your-ecr-repository-url>`
+3. **Deploy App**
+    - Deploy app with docker cli
+    - Deploy app with docker compose
+    - Deploy app with Docker Development Environments
+
 
 ## Level 3 (Mid-level)
 **Task**: Add Docker support to an existing CI/CD pipeline.
