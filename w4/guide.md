@@ -24,7 +24,7 @@
     - Run the command: `docker stop <container-id>`.
 
 ## Level 2 (Junior)
-**Task**: Build a custom Docker image for a simple app and push it to AWS ECR.
+**Task**: Build a custom Docker image for a simple app and deploy it locally.
 
 **Objective**: Learn Docker image creation and management.
 
