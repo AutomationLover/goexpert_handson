@@ -46,26 +46,12 @@
 
 
 ## Level 3 (Mid-level)
-**Task**: Add Docker support to an existing CI/CD pipeline.
+**Task**: Change Docker file and compose file.
+- update port
+- update container name
+- update python base image
 
-**Objective**: Understand how containerisation integrates with CI/CD pipelines.
+**Objective**: Understand parameters in Docker file and compose file.
 
-### Step by Step Guide:
 
-1. **Integrate Docker into your Build Process**
-    - In your CI/CD pipeline configuration, add a new step to build your Docker image.
-    - This step will use the `docker build` command you used earlier.
 
-2. **Push your Docker Image in the Deploy Process**
-    - In your pipeline configuration, add a new step in your deploy process to push your Docker image to AWS ECR.
-    - This step will use the `docker push` command you used earlier.
-
-3. **Deploy your Docker Image**
-    - In the deploy phase, add a step to pull the Docker image from ECR and run it on your servers.
-    - This could be done using AWS ECS, Kubernetes, or any other container orchestration tool that you are using.
-
-4. **Test your CI/CD Pipeline**
-    - Commit your changes and push to your repository to trigger the CI/CD pipeline.
-    - Monitor the pipeline to ensure the Docker image is built, pushed to ECR, and successfully deployed.
-
-Remember, the objective of these tasks is to give you a hands-on understanding of Docker and its integration with CI/CD pipelines. As you grow more comfortable with these technologies, you can explore more complex applications and configurations.
