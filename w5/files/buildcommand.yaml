@@ -1,0 +1,12 @@
+version: 0.2
+
+phases:
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker images...
+      - aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 839775502365.dkr.ecr.us-west-2.amazonaws.com      
+      - docker build -t my-repo .
+      - docker tag my-repo:latest 839775502365.dkr.ecr.us-west-2.amazonaws.com/web:latest
+      - docker push 839775502365.dkr.ecr.us-west-2.amazonaws.com/web:latest
+      - echo Images pushed successfully
