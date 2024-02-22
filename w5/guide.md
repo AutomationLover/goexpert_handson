@@ -98,12 +98,15 @@ sudo service docker restart
 If some permission issue for docker command, pls add sudo before docker.
 If you do not want to add sudo, run 
 ```bash
-sudo service docker restart
+sudo usermod -aG docker ec2-user
 ```
 logout and then login
 
-Check ECR repo and you should find image there.
+the sudo usermod -aG docker ec2-user command is used to add the user "ec2-user" to the "docker" group, allowing that user to run Docker commands without needing to use sudo or switch to the root user.
+- `usermod`: This is the command used to modify a user account. It is typically followed by various options and arguments to specify the modifications to be made.
+- `-aG docker`: These options are used to add the user to a specific group. In this case, the -a option indicates that the user should be added to the specified group, and the -G option is used to specify the group name, which is "docker" in this command.
 
+Check ECR repo and you should find image there.
 
 **Step 4**: Create ECS cluster AWS console
 Create cluster
