@@ -38,3 +38,14 @@ sudo chmod +x /usr/local/bin/ecs-cli
 ```bash
 ecs-cli --version
 ```
+**Step 5**: set up git
+
+```bash
+sudo yum update -y
+```
+```bash
+sudo yum install git -y
+```
+```bash
+git --version
+```
