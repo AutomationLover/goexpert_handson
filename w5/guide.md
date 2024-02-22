@@ -16,7 +16,7 @@ aws ec2 create-key-pair --key-name MyKeyPair --query 'KeyMaterial' --output text
 **Step 2**: Create the EC2 instance
 - To create an EC2 instance, use the following command:
 ```bash
-aws ec2 run-instances --image-id ami-0abcdef1234567890 --count 1 --instance-type t2.micro --key-name MyKeyPair --security-group-ids sg-903004f8 --subnet-id subnet-6e7f829e
+aws ec2 run-instances --image-id ami-01e82af4e524a0aa3 --count 1 --instance-type t2.micro --key-name MyKeyPair --security-group-ids sg-903004f8 --subnet-id subnet-6e7f829e
 ```
 - Replace `ami-0abcdef1234567890` with the image id of the Amazon Linux AMI you want to use. 
 - Replace `sg-903004f8` with the security group id you want to use. You may need to create a security group that allows SSH access.
