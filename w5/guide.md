@@ -1,4 +1,4 @@
-# Week 4: 
+# Week 5 Jumphost, ECS and CICD: 
 ## Level 0 (prerequisites)
 **Task**: Create a Key Pair and an EC2 Instance
 
@@ -21,6 +21,7 @@ aws ec2 create-key-pair --key-name MyKeyPair --query 'KeyMaterial' --output text
 - To connect to the EC2 instance from AWS console
 
 **Step 4**: set up AWS configure
+run aws configure, get credential from you administrator user, and set region to us-west-2
 
 ```bash
 aws configure
@@ -62,9 +63,9 @@ docker --version
 
 
 ## Level 1 
-**Task**: Create ECR, and push image 
+**Task**: Deploy in app in ECS with AWS CLI and AWS console
 
-**Objective**: Create ECR, and push image 
+**Objective**: Create ECR, and push image; create ECS cluster, and run a task
 
 ### Step by Step Guide:
 
@@ -103,14 +104,36 @@ logout and then login
 
 Check ECR repo and you should find image there.
 
-**Step 4**: Create ECS cluster
 
-```bash
-sudo service docker restart
-```
+**Step 4**: Create ECS cluster AWS console
+Create cluster
+Cluster name: myfargate
+Create
+
+
+
+**Step 5**: Create task-definition
+Task definition family: web
+Tick Amazon EC2 instances
+CPU: 0.25; Memory: 0.5GB
+
+Container 1:
+name:  web
+Image: URL, copy from ECR, format like 839775502365.dkr.ecr.us-west-2.amazonaws.com/web:latest
+Container port: 8000
+
+Click Add Container
+Container 2:
+name:  redis
+Image: redislabs/redismod
+Add Port Mappings
+Container port: 6379
+
+**Step 6**: Deploy task to ECS cluster
+Deploy -> Run task
 
 
 ## Level 2 
-**Task**: Create ECS, and push image 
+**Task**: Create pipeline
 
 
