@@ -19,3 +19,22 @@ aws ec2 create-key-pair --key-name MyKeyPair --query 'KeyMaterial' --output text
 
 **Step 3**: Connect to the EC2 instance
 - To connect to the EC2 instance from AWS console
+
+**Step 4**: set up AWS configure
+
+```bash
+aws configure
+```
+**Step 5**: set up ecs-cli
+
+```bash
+sudo curl -Lo /usr/local/bin/ecs-cli https://amazon-ecs-cli.s3.amazonaws.com/ecs-cli-linux-amd64-latest
+```
+
+```bash
+sudo chmod +x /usr/local/bin/ecs-cli
+```
+
+```bash
+ecs-cli --version
+```
