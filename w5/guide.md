@@ -86,10 +86,10 @@ git clone https://github.com/AutomationLover/goexpert_handson.git
 cd goexpert_handson/w5/repo/
 ```
 
-**Step 3**: Push code to ECR
+**Step 3**: Push image to ECR
 follow the cli in "view push commands" in previous Step.
 
-pls copy all files from folder goexpert_handson/w5/repo/, and then git add/commit/push to the ECR repo
+create image under folder "goexpert_handson/w5/repo/", and then push this docker image to ECR following step in "view push commands"
 
 if some docker issue, please try restart
 
