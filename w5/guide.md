@@ -87,7 +87,9 @@ cd goexpert_handson/w5/repo/
 ```
 
 **Step 3**: Push code to ECR
-follow the cli in "view push commands" in previous Step
+follow the cli in "view push commands" in previous Step.
+
+pls copy all files from folder goexpert_handson/w5/repo/, and then git add/commit/push to the ECR repo
 
 if some docker issue, please try restart
 
