@@ -149,7 +149,13 @@ get the code from https://github.com/AutomationLover/goexpert_handson/tree/main/
 **Step 3**: Create pipeline
 update the user id the https://github.com/AutomationLover/goexpert_handson/blob/main/w5/files/buildcommand.yaml
 
+**Step 4**: Update app.py
 
+Update app.py with version
+
+**Step 5**: Run task and check
+
+Run task in ECS cluster and check the version.
 
 ## Level 3 
 **Task**: Create pipeline to deploy image in ECR to ECS
