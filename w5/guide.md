@@ -137,6 +137,7 @@ Container port: 6379
 **Step 6**: Deploy task to ECS cluster
 Deploy -> Run task
 
+codebuild-my-project-service-role role add permission AmazonEC2ContainerRegistryPowerUser
 
 ## Level 2 
 **Task**: Create pipeline to build docker and push image to ECR
