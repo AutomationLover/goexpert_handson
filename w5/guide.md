@@ -62,7 +62,7 @@ docker --version
 ```
 
 
-## Level 1 
+## Level 1 (Intern)
 **Task**: Deploy in app in ECS with AWS CLI and AWS console
 
 **Objective**: Create ECR, and push image; create ECS cluster, and run a task
@@ -137,6 +137,13 @@ Deploy -> Run task
 
 
 ## Level 2 
-**Task**: Create pipeline
+**Task**: Create pipeline to build docker and push image to ECR
+**Objective**: Learn pipeline to build docker and push image to ECR
+
+
+
+## Level 3 
+**Task**: Create pipeline to deploy image in ECR to ECS
+**Objective**: Learn pipeline to deploy image in ECR to ECS
 
 
