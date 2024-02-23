@@ -39,7 +39,7 @@ sudo chmod +x /usr/local/bin/ecs-cli
 ```bash
 ecs-cli --version
 ```
-**Step 5**: set up git and docker
+**Step 6**: set up git and docker
 
 ```bash
 sudo yum update -y
