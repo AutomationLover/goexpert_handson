@@ -140,10 +140,20 @@ Deploy -> Run task
 **Task**: Create pipeline to build docker and push image to ECR
 **Objective**: Learn pipeline to build docker and push image to ECR
 
+**Step 1**: Create repo in CodeCommit
+
+
+**Step 2**: Push code to CodeCommit
+get the code from https://github.com/AutomationLover/goexpert_handson/tree/main/w5/repo
+
+**Step 3**: Create pipeline
+update the user id the https://github.com/AutomationLover/goexpert_handson/blob/main/w5/files/buildcommand.yaml
+
 
 
 ## Level 3 
 **Task**: Create pipeline to deploy image in ECR to ECS
 **Objective**: Learn pipeline to deploy image in ECR to ECS
 
+Please refer to https://docs.aws.amazon.com/codepipeline/latest/userguide/ecs-cd-pipeline.html 
 
