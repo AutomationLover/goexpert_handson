@@ -98,4 +98,9 @@
 
 ### Step by Step Guide:
 
-Read and try to follow steps in https://aws.amazon.com/blogs/devops/using-aws-codepipeline-for-deploying-container-images-to-aws-lambda-functions/
+Read and follow guide of
+
+- option 1: Using AWS CodePipeline for deploying container images to AWS Lambda Functions
+https://aws.amazon.com/blogs/devops/using-aws-codepipeline-for-deploying-container-images-to-aws-lambda-functions/
+- option 2: Using SAM
+https://docs.aws.amazon.com/codepipeline/latest/userguide/tutorials-serverlessrepo-auto-publish.html 
