@@ -79,9 +79,12 @@
     - Click on 'Save'.
 
 3. **Assign IAM Role To Lambda Function**
-    - Go to the `Configuration`->`Permissions` tab of your lambda function and click `Edit` on the right of `Execution role`. Under `Existing role` click `view the HelloWorld-role-xxxx role`. This will take you to the IAM Management Console. You will see a `IAM` -> `roles` page. 
-    Click `Add permissions` -> `Attach policy`.
-    . choose `AmazonDynamoDBFullAccess` policy and click `Add permission`.
+    - Go to the `Configuration`->`Permissions` tab of your lambda function and click `Edit` on the right of `Execution role`.
+    - Under `Existing role` click `view the HelloWorld-role-xxxx role`. This will take you to the IAM Management Console. You will see a `IAM` -> `roles` page.
+    - Click `Add permissions` -> `Attach policy`.
+    - choose `AmazonDynamoDBFullAccess` policy and click `Add permission`
+  
+ 
 
 4. **Deploy Your Lambda update**
     - Click `Deploy`.
