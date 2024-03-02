@@ -1,6 +1,7 @@
 provider "aws" {
   region = "us-west-2"
 }
+
 resource "aws_security_group" "allow_ssh" {
   name        = "allow_ssh"
   description = "Allow inbound SSH traffic"
@@ -20,13 +21,18 @@ resource "aws_security_group" "allow_ssh" {
   }
 }
 
-resource "null_resource" "key_pair" {
+resource "local_file" "key_pair" {
+  filename = "${path.module}/deployer-key.pem"
   provisioner "local-exec" {
     command = <<EOF
-      aws ec2 create-key-pair --key-name deployer-key --query 'KeyMaterial' --output text > deployer-key.pem
-      chmod 400 deployer-key.pem
+      ssh-keygen -t rsa -f ${self.filename} -q -N ""
     EOF
   }
+}
+
+resource "aws_key_pair" "deployer" {
+  key_name   = "deployer-key"
+  public_key = file("${local_file.key_pair.filename}.pub")
 }
 
 data "aws_ami" "amazon_linux" {
@@ -37,13 +43,12 @@ data "aws_ami" "amazon_linux" {
     name   = "name"
     values = ["al2023-ami-2023.3.20240219.0-kernel-6.1-x86_64"]
   }
-
 }
 
 resource "aws_instance" "app" {
   ami           = data.aws_ami.amazon_linux.id
   instance_type = "t2.micro"
-  key_name      = "deployer-key"
+  key_name      = aws_key_pair.deployer.key_name
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
   
   user_data = <<-EOF
@@ -58,12 +63,11 @@ resource "aws_instance" "app" {
               docker --version
               EOF
 
-
   tags = {
     Name = "app-instance"
   }
 }
 
 output "ssh_command" {
-  value = "ssh -i ${path.module}/deployer-key.pem ec2-user@${aws_instance.app.public_ip}"
+  value = "ssh -i ${local_file.key_pair.filename} ec2-user@${aws_instance.app.public_ip}"
 }
