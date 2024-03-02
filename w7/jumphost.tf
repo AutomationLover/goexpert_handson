@@ -42,6 +42,13 @@ resource "aws_instance" "app" {
               sudo yum install docker -y
               docker --version
               EOF
+  
+  connection {
+    type        = "ssh"
+    user        = "ec2-user"
+    private_key = file("${path.module}/deployer-key.pem")
+    host        = self.public_ip
+  }
 
   provisioner "file" {
     source      = "~/.aws/config"
