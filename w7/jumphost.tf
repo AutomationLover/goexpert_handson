@@ -1,6 +1,24 @@
 provider "aws" {
   region = "us-west-2"
 }
+resource "aws_security_group" "allow_ssh" {
+  name        = "allow_ssh"
+  description = "Allow inbound SSH traffic"
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
 
 resource "null_resource" "key_pair" {
   provisioner "local-exec" {
@@ -17,20 +35,16 @@ data "aws_ami" "amazon_linux" {
 
   filter {
     name   = "name"
-    values = ["amzn-ami-hvm-*"]
+    values = ["al2023-ami-2023.3.20240219.0-kernel-6.1-x86_64"]
   }
 
-  filter {
-    name   = "root-device-type"
-    values = ["ebs"]
-  }
 }
 
 resource "aws_instance" "app" {
   ami           = data.aws_ami.amazon_linux.id
   instance_type = "t2.micro"
   key_name      = "deployer-key"
-
+  vpc_security_group_ids = [aws_security_group.allow_ssh.id]
   user_data = <<-EOF
               #!/bin/bash
               sudo curl -Lo /usr/local/bin/ecs-cli https://amazon-ecs-cli.s3.amazonaws.com/ecs-cli-linux-amd64-latest
