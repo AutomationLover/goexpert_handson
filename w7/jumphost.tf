@@ -45,7 +45,7 @@ resource "aws_instance" "app" {
   instance_type = "t2.micro"
   key_name      = "deployer-key"
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
-
+  
   user_data = <<-EOF
               #!/bin/bash
               sudo curl -Lo /usr/local/bin/ecs-cli https://amazon-ecs-cli.s3.amazonaws.com/ecs-cli-linux-amd64-latest
@@ -57,23 +57,7 @@ resource "aws_instance" "app" {
               sudo yum install docker -y
               docker --version
               EOF
-  
-  connection {
-    type        = "ssh"
-    user        = "ec2-user"
-    private_key = file("${path.module}/deployer-key.pem")
-    host        = self.public_ip
-  }
 
-  provisioner "file" {
-    source      = "~/.aws/config"
-    destination = "~/.aws/config"
-  }
-
-  provisioner "file" {
-    source      = "~/.aws/credentials"
-    destination = "~/.aws/credentials"
-  }
 
   tags = {
     Name = "app-instance"
