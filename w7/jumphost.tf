@@ -2,9 +2,13 @@ provider "aws" {
   region = "us-west-2"
 }
 
-resource "aws_key_pair" "deployer" {
-  key_name   = "deployer-key"
-  public_key = file("~/.ssh/id_rsa.pub")
+resource "null_resource" "key_pair" {
+  provisioner "local-exec" {
+    command = <<EOF
+      aws ec2 create-key-pair --key-name deployer-key --query 'KeyMaterial' --output text > deployer-key.pem
+      chmod 400 deployer-key.pem
+    EOF
+  }
 }
 
 data "aws_ami" "amazon_linux" {
@@ -25,7 +29,7 @@ data "aws_ami" "amazon_linux" {
 resource "aws_instance" "app" {
   ami           = data.aws_ami.amazon_linux.id
   instance_type = "t2.micro"
-  key_name      = aws_key_pair.deployer.key_name
+  key_name      = "deployer-key"
 
   user_data = <<-EOF
               #!/bin/bash
@@ -55,5 +59,5 @@ resource "aws_instance" "app" {
 }
 
 output "ssh_command" {
-  value = "ssh -i ${aws_key_pair.deployer.key_name}.pem ec2-user@${aws_instance.app.public_ip}"
+  value = "ssh -i ${path.module}/deployer-key.pem ec2-user@${aws_instance.app.public_ip}"
 }
