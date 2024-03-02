@@ -45,6 +45,7 @@ resource "aws_instance" "app" {
   instance_type = "t2.micro"
   key_name      = "deployer-key"
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
+
   user_data = <<-EOF
               #!/bin/bash
               sudo curl -Lo /usr/local/bin/ecs-cli https://amazon-ecs-cli.s3.amazonaws.com/ecs-cli-linux-amd64-latest
