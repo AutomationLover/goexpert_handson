@@ -20,19 +20,13 @@ resource "aws_security_group" "allow_ssh" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+# run 
+# ssh-keygen -t rsa -f deployer-key.pem -q -N ""
 
-resource "local_file" "key_pair" {
-  filename = "${path.module}/deployer-key.pem"
-  provisioner "local-exec" {
-    command = <<EOF
-      ssh-keygen -t rsa -f ${self.filename} -q -N ""
-    EOF
-  }
-}
 
 resource "aws_key_pair" "deployer" {
   key_name   = "deployer-key"
-  public_key = file("${local_file.key_pair.filename}.pub")
+  public_key = file("${path.module}/deployer-key.pem.pub")
 }
 
 data "aws_ami" "amazon_linux" {
@@ -69,5 +63,5 @@ resource "aws_instance" "app" {
 }
 
 output "ssh_command" {
-  value = "ssh -i ${local_file.key_pair.filename} ec2-user@${aws_instance.app.public_ip}"
+  value = "ssh -i ${path.module}/deployer-key.pem ec2-user@${aws_instance.app.public_ip}"
 }
