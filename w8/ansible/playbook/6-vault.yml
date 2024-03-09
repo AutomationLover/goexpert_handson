@@ -1,0 +1,10 @@
+---
+- hosts: tag_node
+  tasks:
+    - name: Include variables from an encrypted file
+      include_vars:
+        file: secret.yml
+        name: secret
+    - name: print secret
+      debug:
+        var: secret

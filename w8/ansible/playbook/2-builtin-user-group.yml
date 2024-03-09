@@ -1,0 +1,44 @@
+---
+- hosts: tag_node
+  become: yes
+  become_user: root
+  user: ubuntu
+  tasks:
+    - name: Create group "devops" if not exists
+      ansible.builtin.group:
+        name: devops
+        state: present
+
+    - name: Remove group "docker"
+      ansible.builtin.group:
+        name: docker
+        state: absent
+
+    - name: Add the user 'zhangsan' with a bash shell
+    # appending the group 'devops'to the user's groups
+      ansible.builtin.user:
+        name: zhangsan
+        shell: /bin/bash
+        group: devops
+
+    - name: Add the user 'william' with a specific uid and a primary group of 'sudo'
+      ansible.builtin.user:
+        name: william
+        comment: William
+        uid: 1040
+        groups: sudo, admin, devops
+        append: yes
+
+    - name: Remove the user 'zhangsan'
+      ansible.builtin.user:
+        name: zhangsan
+        state: absent
+        remove: yes
+
+    - name: Create a 2048-bit SSH key for user william in ~william/.ssh/id_rsa
+      ansible.builtin.user:
+        name: william
+        generate_ssh_key: yes
+        ssh_key_bits: 2048
+        ssh_key_file: .ssh/id_rsa
+

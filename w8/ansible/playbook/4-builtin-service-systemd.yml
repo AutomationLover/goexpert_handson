@@ -1,0 +1,41 @@
+---
+- hosts: tag_node
+  become: yes
+  become_user: root
+  user: ubuntu
+
+  tasks:
+    - name: Stop service nginx, if started
+      ansible.builtin.service:
+        name: nginx
+        state: stopped
+
+    - name: Disable service nginx, and not touch the state
+      ansible.builtin.service:
+        name: nginx
+        enabled: no
+
+    - name: Start service nginx, if not started
+      ansible.builtin.service:
+        name: nginx
+        state: started
+
+    - name: Enable service nginx, and not touch the state
+      ansible.builtin.service:
+        name: nginx
+        enabled: yes
+
+    # - name: Make sure a service unit is running
+    #   ansible.builtin.systemd:
+    #     state: started
+    #     name: nginx
+
+    # - name: Stop service cron on debian, if running
+    #   ansible.builtin.systemd:
+    #     name: cron
+    #     state: stopped
+
+    # - name: Restart service cron, in all cases
+    #   ansible.builtin.systemd:
+    #     name: cron
+    #     state: restarted

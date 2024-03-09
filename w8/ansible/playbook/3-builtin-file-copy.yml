@@ -1,0 +1,73 @@
+---
+- hosts: tag_node
+  become: yes
+  become_user: root
+  user: ubuntu
+  
+  vars:
+    demo_files:
+      - /home/ubuntu/ansible/demo1.conf
+      - /home/ubuntu/ansible/demo2.conf
+      - /home/ubuntu/ansible/demo3.conf
+    demo_directories:
+      - /home/ubuntu/ansible/1
+      - /home/ubuntu/ansible/2
+
+  tasks:
+    - name: Create a directory 'ansible' if it does not exist
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
+      loop: "{{ demo_directories}}"
+
+    - name: Touch multiple files, using symbolic modes to set the permissions (equivalent to 0644)
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: touch
+        mode: u=rw,g=r,o=r
+      loop: "{{ demo_files }}"
+
+    - name: Recursively change ownership of a directory
+      ansible.builtin.file:
+        path: /home/ubuntu/ansible/
+        state: directory
+        recurse: yes
+        owner: ubuntu
+        group: ubuntu
+
+    - name: Change file ownership, group and permissions
+      ansible.builtin.file:
+        path: /home/ubuntu/ansible/demo2.conf
+        owner: william
+        group: devops
+        mode: '0644'
+
+    - name: Remove file (delete file)
+      ansible.builtin.file:
+        path: /home/ubuntu/ansible/demo2.conf
+        state: absent
+
+    - name: Remove file again (delete file)
+      ansible.builtin.file:
+        path: /home/ubuntu/ansible/demo2.conf
+        state: absent        
+
+    - name: Copy local file to remote with owner and permissions
+      ansible.builtin.copy:
+        src:  /etc/zshrc
+        dest: /home/ubuntu/ansible/
+        owner: william
+        group: devops
+        mode: '0644'
+
+    - name: Copy the "zshrc" file on the remote machine
+      ansible.builtin.copy:
+        src: /home/ubuntu/ansible/zshrc
+        dest: /home/ubuntu/ansible/zshrc.backup
+        remote_src: yes
+
+    - name: Recursively remove directory
+      ansible.builtin.file:
+        path: /home/ubuntu/ansible/
+        state: absent
