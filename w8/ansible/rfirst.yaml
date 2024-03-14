@@ -1,6 +1,6 @@
 ---
 - name: “My first playbook”
-  hosts: localhost
+  hosts: all
 
   tasks:
   - name: “test connectivity”
