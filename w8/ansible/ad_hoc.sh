@@ -67,5 +67,9 @@ Ansible ad-hoc commands are a powerful yet simple way to perform quick tasks, es
 Please replace `all` with your desired group or host in all above commands. Remember, you need to have a proper inventory file set up for these commands to work.
 
 
-Official Docs for Ansible module
-https://docs.ansible.com/ansible/latest/collections/index_module.html
+Using CLI:
+To check all available modules, you can use the command ansible-doc -l.
+To get documentation for a specific module, use ansible-doc <module_name>. For example, to get help with the command module, you can run ansible-doc ansible.builtin.command.
+
+From the Web:
+Visit the official Ansible documentation page for detailed information on the desired module in https://docs.ansible.com/ansible/latest/collections/index_module.html. For instance, for the command module, you can refer to Ansible Builtin Command Module Documentation in https://docs.ansible.com/ansible/latest/collections/ansible/builtin/index.html.
