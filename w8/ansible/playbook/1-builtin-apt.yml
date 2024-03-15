@@ -1,5 +1,5 @@
 ---
-- hosts: node
+- hosts: tag_node
   become: yes
   become_user: root
   user: ubuntu
