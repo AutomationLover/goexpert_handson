@@ -1,5 +1,5 @@
 To demonstrate how to expose a service in Kubernetes and use this service in another container in a separate pod, you can follow these steps:
-Create a Deployment for the Service:
+##  Create a Deployment for the Service:
 Create a deployment for the service you want to expose. Here is an example YAML file for the deployment:
 
 ```yaml
@@ -24,7 +24,7 @@ spec:
             - containerPort: 80
 ```
 
-Create a Service for the Service Deployment:
+## Create a Service for the Service Deployment:
 Create a ClusterIP service to expose the service-container within the cluster. Here is an example YAML file for the service:
 
 ```yaml
@@ -42,7 +42,7 @@ spec:
 ```
 
 
-Create a Consumer Pod:
+## Create a Consumer Pod:
 Create a separate pod that will consume the service exposed by the service-clusterip. Here is an example YAML file for the consumer pod:
 
 ```yaml
@@ -57,12 +57,17 @@ spec:
       command: ["/bin/sh", "-c", "while true; do wget -qO- http://service-clusterip.default.svc.cluster.local; sleep 1; done"]
 ```
 
-Apply the Configurations:
+## Apply the Configurations:
 Apply the deployment, service, and consumer pod configurations using `kubectl apply -f <filename.yaml>`.
-Verify the Setup:
+
+## Verify the Setup:
 Check if the service deployment, ClusterIP service, and consumer pod are running correctly using kubectl get pods and kubectl get services.
-Access the Service from Consumer Pod:
+
+## Access the Service from Consumer Pod:
 The consumer-container in the consumer-pod can access the service-container through the ClusterIP of service-clusterip. In this case, it will use http://service-clusterip.default.svc.cluster.local.
-View Logs (Optional):
+
+## View Logs (Optional):
 You can view logs of the consumer-container in the consumer-pod to see if it successfully consumes the service by running kubectl logs <consumer-pod-name>.
+
+# Summary
 By following these steps, you can expose a service in Kubernetes and demonstrate how another container in a separate pod within the same cluster can consume this service. This setup showcases inter-pod communication using services in Kubernetes.
