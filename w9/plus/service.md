@@ -56,7 +56,10 @@ spec:
       image: busybox
       command: ["/bin/sh", "-c", "while true; do wget -qO- http://service-clusterip.default.svc.cluster.local; sleep 1; done"]
 ```
-
+check log
+```
+kubectl logs consumer-pod -c consumer-container
+```
 ## Apply the Configurations:
 Apply the deployment, service, and consumer pod configurations using `kubectl apply -f <filename.yaml>`.
 
@@ -68,6 +71,7 @@ The consumer-container in the consumer-pod can access the service-container thro
 
 ## View Logs (Optional):
 You can view logs of the consumer-container in the consumer-pod to see if it successfully consumes the service by running kubectl logs <consumer-pod-name>.
+
 
 # Summary
 By following these steps, you can expose a service in Kubernetes and demonstrate how another container in a separate pod within the same cluster can consume this service. This setup showcases inter-pod communication using services in Kubernetes.
