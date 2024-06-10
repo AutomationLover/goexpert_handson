@@ -50,15 +50,6 @@ Here's a simple "Hello World" HTML file:
 2. Upload this new file to the S3 bucket. It should have the same name as the previous file.
 3. The new file becomes the current version.
 
-#### Step 3: Restore from a previous version in S3
-1. Click on the file in the S3 bucket.
-2. Click on the "Versioning" tab.
-3. You will see multiple versions of the file.
-4. Choose the version you want to restore and click "Actions".
-5. Click "Make this the current version".
-6. The selected version is now restored and becomes the current version.
-
-
 ## Level 2 (Junior)
 
 ### Task: Setup Route53 Records for a Static Web Page Hosted in an S3 Bucket
