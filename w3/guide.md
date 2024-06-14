@@ -47,6 +47,7 @@
 4. **Configure the deploy stage**
     - In `Deploy provider`, choose `Amazon S3`.
     - In `Bucket`, choose the name of the S3 bucket where your index.html file is stored.
+    - tick "Extract file before deploy"
     - Choose `Next`.
 
 5. **Review the pipeline**
