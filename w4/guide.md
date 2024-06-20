@@ -37,7 +37,7 @@
 2. **Build the Docker Image**
     - Run the command: `docker build -t <image-name> .`.
     - For example, to build an image named my-app, run `docker build -t my-app .`.
-    - Following steps https://github.com/AutomationLover/website-visit-count/blob/main/README.md 
+    - Following steps https://github.com/AutomationLover/website-visit-count/blob/main/README.md, after git clone this repo
 
 3. **Deploy App**
     - Deploy app with docker cli
