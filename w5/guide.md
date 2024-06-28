@@ -20,6 +20,7 @@ aws ec2 create-key-pair --key-name MyKeyPair --query 'KeyMaterial' --output text
 **Step 3**: Connect to the EC2 instance
 - To connect to the EC2 instance from AWS console
 - run `chmod 400 MyKeyPair.pem`, if you get error `Permissions 0644 for 'MyKeyPair.pem' are too open.`
+- more to read for Linux file permission in https://www.linuxfoundation.org/blog/blog/classic-sysadmin-understanding-linux-file-permissions
 
 **Step 4**: set up AWS configure
 run aws configure, get credential from you administrator user, and set region to us-west-2
