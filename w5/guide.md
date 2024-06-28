@@ -151,6 +151,9 @@ Deploy -> Run task
 
 codebuild-my-project-service-role role add permission AmazonEC2ContainerRegistryPowerUser
 
+Notes:
+Decommission process. To remove service/tasks 1st, and then delete Cluster
+
 ## Level 2 
 **Task**: Create pipeline to build docker and push image to ECR
 **Objective**: Learn pipeline to build docker and push image to ECR
