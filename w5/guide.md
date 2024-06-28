@@ -147,7 +147,7 @@ Add Port Mappings
 Container port: 6379
 
 **Step 6**: Deploy task to ECS cluster
-Deploy -> Run task
+Deploy -> Run task (Notes, we did run service in demo, instead of run task)
 
 codebuild-my-project-service-role role add permission AmazonEC2ContainerRegistryPowerUser
 
