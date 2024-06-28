@@ -28,6 +28,14 @@ run aws configure, get credential from you administrator user, and set region to
 ```bash
 aws configure
 ```
+tips:
+you may have set up AWS configure in your laptop, you can fetch aws_access_key_id and aws_secret_access_key via
+```bash
+ls -al ~/.aws
+cat ~/.aws/credentials
+```
+
+
 **Step 5**: set up ecs-cli
 
 ```bash
