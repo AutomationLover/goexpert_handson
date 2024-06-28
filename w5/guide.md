@@ -70,7 +70,7 @@ sudo yum install docker -y
 ```bash
 docker --version
 ```
-
+To read more for Yum in https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/system_administrators_guide/ch-yum#ch-yum
 
 ## Level 1 (Intern)
 **Task**: Deploy in app in ECS with AWS CLI and AWS console
@@ -98,6 +98,8 @@ cd goexpert_handson/w5/repo/
 
 **Step 3**: Push image to ECR
 follow the cli in "view push commands" in previous Step.
+Open AWS console https://us-west-2.console.aws.amazon.com/ecr/private-registry/repositories?region=us-west-2, select `web` repo, you will find bottom `You can find "view push commands" on `
+
 
 create image under folder "goexpert_handson/w5/repo/", and then push this docker image to ECR following step in "view push commands"
 
