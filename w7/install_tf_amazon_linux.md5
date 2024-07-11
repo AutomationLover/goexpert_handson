@@ -1,0 +1,30 @@
+Connect to your Amazon Linux EC2 instance using SSH.
+Update the system packages:
+text
+sudo yum update -y
+
+Install wget if it's not already installed:
+text
+sudo yum install -y wget
+
+Download the latest version of Terraform. You can find the latest version on the official Terraform website. Here's an example using version 1.5.7 (replace with the latest version):
+text
+wget https://releases.hashicorp.com/terraform/1.5.7/terraform_1.5.7_linux_amd64.zip
+
+Install unzip if it's not already installed:
+text
+sudo yum install -y unzip
+
+Unzip the downloaded file:
+text
+unzip terraform_1.5.7_linux_amd64.zip
+
+Move the Terraform binary to a directory in your PATH:
+text
+sudo mv terraform /usr/local/bin/
+
+Verify the installation:
+text
+terraform version
+
+This should display the version of Terraform you just installed.
