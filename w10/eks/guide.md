@@ -127,6 +127,9 @@ eksctl get nodegroup --cluster=eksdemo1
 # Delete Node Group
 eksctl delete nodegroup --cluster=<clusterName> --name=<nodegroupName>
 eksctl delete nodegroup --cluster=eksdemo1 --name=eksdemo1-ng-public1
+
+# using  --drain=true, if there is error
+eksctl delete nodegroup --cluster=eksdemo1 --name=eksdemo1-ng-public1 --drain=true
 ```
 
 ## Step-02: Delete Cluster  
