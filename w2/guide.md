@@ -30,11 +30,6 @@ Here's a simple "Hello World" HTML file:
 2. Go to the "Permissions" tab.
 3. Click "Edit", uncheck "Block all public access", and save.
 
-#### Step 4: Set up Route53 A record to point to S3
-1. Go to Route53 service in AWS Console.
-2. Create a new Hosted Zone with your domain.
-3. Create a new record set, choose type "A - IPV4 address".
-4. Set the Alias target to your S3 bucket's website endpoint.
 
 ## Level 1 (Option)
 ### Task: Configure permissions and versioning for the S3 bucket.
