@@ -209,7 +209,10 @@ https://github.com/AutomationLover/goexpert_handson/blob/main/w5/repo/buildspec.
    - Create project "myProject"
       - Select "Use a buildspec file"   
       - Remove the selection of "CloudWatch logs - optional"
-      - Click "Continue to CodePipeline"  
+      - Click "Continue to CodePipeline"
+      - Others refer to "On the Step 3: Add build stage page, for Build provider choose AWS CodeBuild, and then choose Create project." in https://docs.aws.amazon.com/codepipeline/latest/userguide/ecs-cd-pipeline.html 
+
+  
    - Double check the region is the same region of CodeCommit and ECR in previous step
      
 - step 5:
