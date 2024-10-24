@@ -131,7 +131,6 @@ Create
 
 **Step 5**: Create task-definition
 - Task definition family: web
-- Tick Amazon EC2 instances
 - CPU: 0.25; Memory: 0.5GB
 
 Container 1:
