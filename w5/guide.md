@@ -130,31 +130,40 @@ Create
 
 
 **Step 5**: Create task-definition
-Task definition family: web
-Tick Amazon EC2 instances
-CPU: 0.25; Memory: 0.5GB
+- Task definition family: web
+- Tick Amazon EC2 instances
+- CPU: 0.25; Memory: 0.5GB
 
 Container 1:
-name:  web
-Image: URL, copy from ECR, format like 839775502365.dkr.ecr.us-west-2.amazonaws.com/web:latest
-Container port: 8000
+- name:  web
+- Image: URL, copy from ECR, format like 839775502365.dkr.ecr.us-west-2.amazonaws.com/web:latest
+- Container port: 8000
 
 Click Add Container
+
 Container 2:
-name:  redis
-Image: redislabs/redismod
-Add Port Mappings
-Container port: 6379
+- name:  redis
+- Image: redislabs/redismod
+- Add Port Mappings
+- Container port: 6379
+
+
 
 **Step 6**: Deploy task to ECS cluster
-Deploy -> Run task (Notes, we did run service in demo, instead of run task)
+- Deploy -> Create service 
+  - name: myWebCntService
+  - Add Load Balancer (OPTIONAL)
+   - Type: Application Load Balancer
+   - Load balancer name: "myWebCountLB"
 
-codebuild-my-project-service-role role add permission AmazonEC2ContainerRegistryPowerUser
+
+If error of IAM do below
+- codebuild-my-project-service-role role add permission AmazonEC2ContainerRegistryPowerUser
 
 Notes:
 Decommission process. To remove service/tasks 1st, and then delete Cluster
 
-## Level 2 
+## Level 2 (Skip by Devops14)
 **Task**: Create pipeline to build docker and push image to ECR
 **Objective**: Learn pipeline to build docker and push image to ECR
 
@@ -180,4 +189,34 @@ Run task in ECS cluster and check the version.
 **Objective**: Learn pipeline to deploy image in ECR to ECS
 
 Please refer to https://docs.aws.amazon.com/codepipeline/latest/userguide/ecs-cd-pipeline.html 
+**Step 1**: Create repo in CodeCommit
 
+
+**Step 2**: Push code to CodeCommit
+get the code from https://github.com/AutomationLover/goexpert_handson/tree/main/w5/repo
+Replace below, with your own AWS account ID and region, and push the code to CodeCommit repo 
+https://github.com/AutomationLover/goexpert_handson/blob/main/w5/repo/buildspec.yml#L11
+
+**Step 3**: Create pipeline
+- step 1: select Build custom pipeline
+- step 2: give Pipeline name "myCountWebPipeline"
+- step 3:
+   - select source provider "AWS CodeCommit", and
+   - the repo you created before
+   - branch "master"
+- step 4:
+   - Select "Other build providers"
+   - Create project "myProject"
+      - Select "Use a buildspec file"   
+      - Remove the selection of "CloudWatch logs - optional"
+      - Click "Continue to CodePipeline"  
+   - Double check the region is the same region of CodeCommit and ECR in previous step
+     
+- step 5:
+   - Deploy provider: select "Amazon ECS"
+   - Double check the region is the same region of CodeCommit and ECR in previous step
+   - Select Cluster name, which you created in previous step
+   - Select Service name, which you created in previous step
+ 
+- step 6
+   - Review and Confirm
