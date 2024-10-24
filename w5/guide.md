@@ -222,4 +222,4 @@ https://github.com/AutomationLover/goexpert_handson/blob/main/w5/repo/buildspec.
  
 - step 6
    - Review and Confirm
-If IAM error, which did not allow visit ECR, check https://docs.aws.amazon.com/codepipeline/latest/userguide/ecs-cd-pipeline.html#code-build-perms
+   - If IAM error, which did not allow visit ECR, The CodePipeline wizard created an IAM role for the CodeBuild build project, called codebuild-build-project-name-service-role. For this tutorial, the name is codebuild-hello-world-service-role. Because the buildspec.yml file makes calls to Amazon ECR API operations, the role must have a policy that allows permissions to make these Amazon ECR calls.  check https://docs.aws.amazon.com/codepipeline/latest/userguide/ecs-cd-pipeline.html#code-build-perms
