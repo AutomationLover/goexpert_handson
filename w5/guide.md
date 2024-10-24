@@ -222,3 +222,4 @@ https://github.com/AutomationLover/goexpert_handson/blob/main/w5/repo/buildspec.
  
 - step 6
    - Review and Confirm
+If IAM error, which did not allow visit ECR, check https://docs.aws.amazon.com/codepipeline/latest/userguide/ecs-cd-pipeline.html#code-build-perms
