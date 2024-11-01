@@ -6,5 +6,5 @@ ssh-keygen -t rsa -f deployer-key.pem -q -N ""
 2. run
 ```
 terraform init
-terrafrom apply
+terraform apply
 ```
