@@ -101,10 +101,11 @@ Replace `YOUR-BUCKET-NAME` with the actual name of your S3 bucket.
 1. After creating your hosted zone, you will be taken to its management page.
 2. Click "Create Record".
 3. In the "Record name" field, specify the subdomain if required (e.g., www), or leave it blank for the root domain.
-4. Set the "Record type" to "A – Routes traffic to an IPv4 address and some AWS resources".
-5. Select the "Alias" toggle to "Yes".
-6. In the "Alias to S3 website endpoint" section, choose the region where your S3 bucket is hosted and then select the bucket from the dropdown list.
+4. Set the "Record type" to "CNAME".
+5. Keep the "Alias" toggle to "No".
+6. Give value with the in S3 -> Properties -> Static website hosting -> Bucket website endpoint, the URL part e.g. (you see "http://www.anotherdemo.devops12.learnby.click.s3-website-us-east-1.amazonaws.com ", you will give value "www.anotherdemo.devops12.learnby.click.s3-website-us-east-1.amazonaws.com ").
 7. Click "Create records".
+
 
 #### Step 6: Update Name Servers for Your Domain (if using third-party registrar)
 1. If you registered your domain with Route 53, it will automatically use AWS name servers. Skip to the next step.
