@@ -6,7 +6,7 @@
 
 #### Step 1: Create an S3 Bucket
 1. Go to the S3 service in AWS Console.
-2. Click "Create Bucket", give it a unique name and select us-east-1. (the bucket name using the URL you are going to use in Zone A record setting in step2)
+2. Click "Create Bucket", give it a unique name and select us-east-1. (the bucket name using the URL you are going to use in Zone A record setting in step2, e.g. "www.{{ yourname }}.{{ devopsNN }}.learnby.click")
 3. Leave the rest as default and click "Create".
 
 #### Step 2: Upload a HTML file
