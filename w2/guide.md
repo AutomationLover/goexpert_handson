@@ -6,7 +6,7 @@
 
 #### Step 1: Create an S3 Bucket
 1. Go to the S3 service in AWS Console.
-2. Click "Create Bucket", give it a unique name and select your preferred region.
+2. Click "Create Bucket", give it a unique name and select us-east-1. (the bucket name using the URL you are going to use in Zone A record setting in step2)
 3. Leave the rest as default and click "Create".
 
 #### Step 2: Upload a HTML file
@@ -101,9 +101,9 @@ Replace `YOUR-BUCKET-NAME` with the actual name of your S3 bucket.
 1. After creating your hosted zone, you will be taken to its management page.
 2. Click "Create Record".
 3. In the "Record name" field, specify the subdomain if required (e.g., www), or leave it blank for the root domain.
-4. Set the "Record type" to "CNAME".
-5. Keep the "Alias" toggle to "No".
-6. Give value with the in S3 -> Properties -> Static website hosting -> Bucket website endpoint, the URL part e.g. (you see "http://www.anotherdemo.devops12.learnby.click.s3-website-us-east-1.amazonaws.com ", you will give value "www.anotherdemo.devops12.learnby.click.s3-website-us-east-1.amazonaws.com ").
+4. Set the "Record type" to "A".
+5. Set the "Alias" toggle to "Yes".
+6. Select the S3 bucket.
 7. Click "Create records".
 
 
