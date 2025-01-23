@@ -124,3 +124,10 @@ Replace `YOUR-BUCKET-NAME` with the actual name of your S3 bucket.
 ### Task: let HTTPS works
 
 You can try to follow up with https://docs.aws.amazon.com/AmazonS3/latest/userguide/website-hosting-custom-domain-walkthrough.html
+
+1. Update cloudfront distribute
+   General -> Settings -> Edit 
+   Add "Alternate domain name (CNAME)" with "www.{{ yourname }}.{{ devopsNN }}.learnby.click"
+   Create SSL certificate with  "www.{{ yourname }}.{{ devopsNN }}.learnby.click"
+
+   OK
