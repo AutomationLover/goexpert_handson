@@ -127,7 +127,11 @@ You can try to follow up with https://docs.aws.amazon.com/AmazonS3/latest/usergu
 
 1. Update cloudfront distribute
    General -> Settings -> Edit 
+
    Add "Alternate domain name (CNAME)" with "www.{{ yourname }}.{{ devopsNN }}.learnby.click"
+
    Create SSL certificate with  "www.{{ yourname }}.{{ devopsNN }}.learnby.click"
+
+   During Creating SSL certificate, you may need to add CNAME.
 
    OK
