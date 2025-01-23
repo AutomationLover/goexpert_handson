@@ -125,7 +125,12 @@ Replace `YOUR-BUCKET-NAME` with the actual name of your S3 bucket.
 
 You can try to follow up with https://docs.aws.amazon.com/AmazonS3/latest/userguide/website-hosting-custom-domain-walkthrough.html
 
-1. Update cloudfront distribute
+1. Creat cloudfront distribute
+
+   set up Origin with the S3 bucket static web page, (e.g. static page of  http://hello-world-devops15.s3-website-ap-southeast-2.amazonaws.com/, using "hello-world-devops15.s3-website-ap-southeast-2.amazonaws.com",)
+
+2. Update cloudfront distribute
+    
    General -> Settings -> Edit 
 
    Add "Alternate domain name (CNAME)" with "www.{{ yourname }}.{{ devopsNN }}.learnby.click"
