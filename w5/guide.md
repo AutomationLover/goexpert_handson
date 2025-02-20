@@ -162,7 +162,7 @@ If error of IAM do below
 Notes:
 Decommission process. To remove service/tasks 1st, and then delete Cluster
 
-## Level 2 (Skip by Devops14)
+## Level 2 (skip in class)
 **Task**: Create pipeline to build docker and push image to ECR
 **Objective**: Learn pipeline to build docker and push image to ECR
 
@@ -183,7 +183,7 @@ Update app.py with version
 
 Run task in ECS cluster and check the version.
 
-## Level 3 
+## Level 3 (skip in class)
 **Task**: Create pipeline to deploy image in ECR to ECS
 **Objective**: Learn pipeline to deploy image in ECR to ECS
 
