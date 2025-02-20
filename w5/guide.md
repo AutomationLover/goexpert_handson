@@ -159,6 +159,9 @@ Container 2:
 If error of IAM do below
 - codebuild-my-project-service-role role add permission AmazonEC2ContainerRegistryPowerUser
 
+Click link in create new Task, and click Configuration tab, you can find the Public IP. Then visit this IP with port 8000
+http://{public_ip}:8000/hit
+
 Notes:
 Decommission process. To remove service/tasks 1st, and then delete Cluster
 
