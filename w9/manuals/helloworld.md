@@ -80,9 +80,9 @@ spec:
     spec:
         containers:
         - name: helloworld
-            image: helloworld:latest
-            ports:
-            - containerPort: 8080
+          image: helloworld:latest
+          ports:
+          - containerPort: 8080
 ```
 This YAML file tells Kubernetes to create a Deployment named "helloworld-deployment" with 3 replicas, each serving the "helloworld" Docker image on port 8080.
 
