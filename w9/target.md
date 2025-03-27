@@ -12,6 +12,6 @@
 **Objective**: Deploy some service in K8s
 
 ### Level 3 (Advanced)
-**Task**: Deploy k8s in AWS EKS
+**Task**: Deploy Helm
 
-**Objective**: Gain experience of K8s in AWS Cloud.
+**Objective**: Gain experience of Helm.
