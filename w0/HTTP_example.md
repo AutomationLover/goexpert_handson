@@ -1,4 +1,4 @@
-```markdown
+
 # Quick Guide: Start Nginx with Docker, Test with Telnet, View in Wireshark
 
 ## 1. Start Nginx Container
@@ -48,5 +48,5 @@ docker rm nginx-container
 ```bash
 docker rmi nginx
 ```
-```
+
 
