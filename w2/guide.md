@@ -26,9 +26,8 @@ Here's a simple "Hello World" HTML file:
 3. Choose the `index.html` file and click "Upload".
 
 #### Step 3: Set permissions to allow public view
-1. Click on your `index.html` file in the S3 bucket.
-2. Go to the "Permissions" tab.
-3. Click "Edit", uncheck "Block all public access", and save.
+1. Go to the "Permissions" tab.
+2. Click "Edit", uncheck "Block all public access", and save.
 
 
 ## Level 1 (Option)
