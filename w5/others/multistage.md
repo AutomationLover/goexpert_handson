@@ -74,9 +74,8 @@ EXPOSE 5000
 CMD ["python", "-m", "flask", "run", "--host=0.0.0.0"]
 ```
 
-### Step 2: Rebuild and Run the Docker Container
 
-1. **Rebuild the Docker Image:**
+1. **Build the Docker Image:**
    ```bash
    docker build -t python-flask-multi-stage .
    ```
@@ -86,14 +85,6 @@ CMD ["python", "-m", "flask", "run", "--host=0.0.0.0"]
    docker run -d -p 5000:5000 python-flask-multi-stage
    ```
 
-### Explanation
-
-- **Use Python to Run Flask:** Instead of relying on the `flask` command, you can use `python -m flask` which ensures that the Flask CLI is invoked correctly within the context of your Python environment.
-
-- **Environment Variable:** Make sure the `FLASK_APP` environment variable is set correctly. This tells Flask which application to run.
-
-By following these steps, you should be able to resolve the issue and run your Flask application within a Docker container using multi-stage builds. If you continue to experience issues, ensure that Flask is correctly listed in your `requirements.txt` and that there are no typos in your Dockerfile or Flask application code.
-   ```
 
 ### Step 3: Build and Run the Docker Image
 
