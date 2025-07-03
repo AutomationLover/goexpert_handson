@@ -36,25 +36,8 @@ To demonstrate multi-stage builds using a Python-based project, you can follow t
 ### Step 2: Create a Multi-Stage Dockerfile
 
 1. **Create a Dockerfile:**
-
-   ```dockerfile
-The error message indicates that the `flask` command is not found in the `$PATH` when the container starts. This is likely because the Flask CLI is not installed globally within the container's environment or the `FLASK_APP` environment variable might not be set correctly.
-
-Here's how you can address this issue:
-
-### Step 1: Modify the Dockerfile
-
-Ensure that Flask is installed correctly and the environment is set up properly:
-
-1. **Ensure Flask CLI is Installed:**
-   The `flask` command should be available in the container’s environment. This typically happens when Flask is installed via `pip` and `pip` is run within the Dockerfile. Since you already installed Flask via `pip`, ensure no issues occurred during installation.
-
-2. **Set FLASK_APP Environment Variable:**
-   Confirm that the `FLASK_APP` environment variable is set to the correct entry point of your application (`app.py` in this case).
-
-Here's how you might modify the existing Dockerfile to ensure these settings:
-
 ```dockerfile
+#Dockerfile
 # Step 1: Use a base image with Python and required tools
 FROM python:3.9-slim as builder
 
