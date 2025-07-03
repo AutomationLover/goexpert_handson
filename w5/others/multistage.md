@@ -36,54 +36,44 @@ To demonstrate multi-stage builds using a Python-based project, you can follow t
 ### Step 2: Create a Multi-Stage Dockerfile
 
 1. **Create a Dockerfile:**
-```dockerfile
-#Dockerfile
-# Step 1: Use a base image with Python and required tools
-FROM python:3.9-slim as builder
-
-# Set working directory
-WORKDIR /app
-
-# Install build dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends gcc
-
-# Copy requirements file and install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy the application source code
-COPY app.py .
-
-# Step 2: Create a lightweight image for production
-FROM python:3.9-alpine
-
-# Set working directory
-WORKDIR /app
-
-# Copy only the necessary files from builder
-COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
-COPY --from=builder /app .
-
-# Set environment variables
-ENV FLASK_APP=app.py
-
-# Expose the application port
-EXPOSE 5000
-
-# Run the application
-CMD ["python", "-m", "flask", "run", "--host=0.0.0.0"]
-```
-
-
-1. **Build the Docker Image:**
-   ```bash
-   docker build -t python-flask-multi-stage .
+   ```dockerfile
+   #Dockerfile
+   # Step 1: Use a base image with Python and required tools
+   FROM python:3.9-slim as builder
+   
+   # Set working directory
+   WORKDIR /app
+      
+   # Install build dependencies
+   RUN apt-get update && apt-get install -y --no-install-recommends gcc
+   
+   # Copy requirements file and install dependencies
+   COPY requirements.txt .
+   RUN pip install --no-cache-dir -r requirements.txt
+   
+   # Copy the application source code
+   COPY app.py .
+   
+   # Step 2: Create a lightweight image for production
+   FROM python:3.9-alpine
+   
+   # Set working directory
+   WORKDIR /app
+   
+   # Copy only the necessary files from builder
+   COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
+   COPY --from=builder /app .
+   
+   # Set environment variables
+   ENV FLASK_APP=app.py
+   
+   # Expose the application port
+   EXPOSE 5000
+   
+   # Run the application
+   CMD ["python", "-m", "flask", "run", "--host=0.0.0.0"]
    ```
 
-2. **Run the Docker Container:**
-   ```bash
-   docker run -d -p 5000:5000 python-flask-multi-stage
-   ```
 
 
 ### Step 3: Build and Run the Docker Image
