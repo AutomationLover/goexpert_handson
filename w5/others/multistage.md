@@ -30,6 +30,7 @@ To demonstrate multi-stage builds using a Python-based project, you can follow t
      ```plaintext
      # requirements.txt
      Flask==2.0.3
+     Werkzeug==2.0.3     
      ```
 
 ### Step 2: Create a Multi-Stage Dockerfile
@@ -37,40 +38,78 @@ To demonstrate multi-stage builds using a Python-based project, you can follow t
 1. **Create a Dockerfile:**
 
    ```dockerfile
-   # Step 1: Use a base image with Python and required tools
-   FROM python:3.9-slim as builder
+The error message indicates that the `flask` command is not found in the `$PATH` when the container starts. This is likely because the Flask CLI is not installed globally within the container's environment or the `FLASK_APP` environment variable might not be set correctly.
 
-   # Set working directory
-   WORKDIR /app
+Here's how you can address this issue:
 
-   # Install build dependencies
-   RUN apt-get update && apt-get install -y --no-install-recommends gcc
+### Step 1: Modify the Dockerfile
 
-   # Copy requirements file and install dependencies
-   COPY requirements.txt .
-   RUN pip install --no-cache-dir -r requirements.txt
+Ensure that Flask is installed correctly and the environment is set up properly:
 
-   # Copy the application source code
-   COPY app.py .
+1. **Ensure Flask CLI is Installed:**
+   The `flask` command should be available in the container’s environment. This typically happens when Flask is installed via `pip` and `pip` is run within the Dockerfile. Since you already installed Flask via `pip`, ensure no issues occurred during installation.
 
-   # Step 2: Create a lightweight image for production
-   FROM python:3.9-alpine
+2. **Set FLASK_APP Environment Variable:**
+   Confirm that the `FLASK_APP` environment variable is set to the correct entry point of your application (`app.py` in this case).
 
-   # Set working directory
-   WORKDIR /app
+Here's how you might modify the existing Dockerfile to ensure these settings:
 
-   # Copy only the necessary files from builder
-   COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
-   COPY --from=builder /app .
+```dockerfile
+# Step 1: Use a base image with Python and required tools
+FROM python:3.9-slim as builder
 
-   # Set environment variables
-   ENV FLASK_APP=app.py
+# Set working directory
+WORKDIR /app
 
-   # Expose the application port
-   EXPOSE 5000
+# Install build dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends gcc
 
-   # Run the application
-   CMD ["flask", "run", "--host=0.0.0.0"]
+# Copy requirements file and install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the application source code
+COPY app.py .
+
+# Step 2: Create a lightweight image for production
+FROM python:3.9-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Copy only the necessary files from builder
+COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
+COPY --from=builder /app .
+
+# Set environment variables
+ENV FLASK_APP=app.py
+
+# Expose the application port
+EXPOSE 5000
+
+# Run the application
+CMD ["python", "-m", "flask", "run", "--host=0.0.0.0"]
+```
+
+### Step 2: Rebuild and Run the Docker Container
+
+1. **Rebuild the Docker Image:**
+   ```bash
+   docker build -t python-flask-multi-stage .
+   ```
+
+2. **Run the Docker Container:**
+   ```bash
+   docker run -d -p 5000:5000 python-flask-multi-stage
+   ```
+
+### Explanation
+
+- **Use Python to Run Flask:** Instead of relying on the `flask` command, you can use `python -m flask` which ensures that the Flask CLI is invoked correctly within the context of your Python environment.
+
+- **Environment Variable:** Make sure the `FLASK_APP` environment variable is set correctly. This tells Flask which application to run.
+
+By following these steps, you should be able to resolve the issue and run your Flask application within a Docker container using multi-stage builds. If you continue to experience issues, ensure that Flask is correctly listed in your `requirements.txt` and that there are no typos in your Dockerfile or Flask application code.
    ```
 
 ### Step 3: Build and Run the Docker Image
