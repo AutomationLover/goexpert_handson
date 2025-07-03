@@ -23,6 +23,9 @@ Below is a step-by-step guide to help you understand the CMD and Entrypoint inst
      ```bash
      docker run --rm cmd-example
      ```
+     ```bash
+     --rm                               Automatically remove the container and its associated anonymous volumes when it exits
+     ```
    - This will output: `hello from cmd in Dockerfile.cmd`.
 
 4. **Override CMD:**
