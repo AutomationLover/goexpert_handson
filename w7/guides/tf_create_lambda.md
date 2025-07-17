@@ -16,7 +16,7 @@ terraform_lambda/
 
 Now let's go through each file:
 
-1. `lambda_function/helloword.py`: This is a simple Python lambda function.
+1. `lambda_function/helloworld.py`: This is a simple Python lambda function.
     ```python
     def lambda_handler(event, context):
         print("Hello, World!")
