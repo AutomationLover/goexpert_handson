@@ -79,12 +79,11 @@ kubectl autoscale deployment nginx-deployment --min=2 --max=5 --cpu-percent=80
 
 This command will ensure that there are always between 2 and 5 replicas of the Deployment running, scaling up and down based on CPU usage.
 
-**Step 8:** To view the status of the Deployment, Service, and Horizontal Pod Autoscaler, you can use the following commands:
+**Step 8:** To view the status of the Deployment, Service, you can use the following commands:
 
 ```
 kubectl get deployments
 kubectl get services
-kubectl get hpa
 ```
 
 This is a basic guide to deploying a service on Kubernetes, and scaling it both manually and automatically. There are many other features in Kubernetes that allow for even more complex deployments and management of applications.
