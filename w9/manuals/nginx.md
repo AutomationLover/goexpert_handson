@@ -36,7 +36,7 @@ kubectl apply -f nginx-deployment.yaml
 
 ```yaml
 apiVersion: v1
-kind:Service
+kind: Service
 metadata:
   name: nginx-service
 spec:
