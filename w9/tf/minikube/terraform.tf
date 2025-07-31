@@ -101,9 +101,7 @@ resource "aws_instance" "minikube" {
 
 output "ssh_command_to_minikube" {
   value = <<EOF
-  pls do
-  1. . check ssh connection to client
-  ssh to terraform
+  ssh to minikube_host
   ssh -i ${path.module}/deployer-key.pem ubuntu@${aws_instance.minikube.public_ip}
   EOF
   description = "output"
