@@ -48,7 +48,7 @@ Now, create a `package.json` file with the following content:
 Build your docker image using the following command:
 
 ```bash
-docker build -t helloworld .
+docker build -t helloworld:latest .
 ```
 
 2. ### Deploying the Docker Image to Kubernetes ###
@@ -57,6 +57,7 @@ As you already have minikube installed, start it:
 
 ```bash
 minikube start
+minikube image load helloworld:latest
 ```
 
 Now, let's create a Kubernetes Deployment using a YAML file. Create a new file called `helloworld-deployment.yaml`:
@@ -81,6 +82,7 @@ spec:
         containers:
         - name: helloworld
           image: helloworld:latest
+          imagePullPolicy: Never
           ports:
           - containerPort: 8080
 ```
