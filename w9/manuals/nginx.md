@@ -1,4 +1,4 @@
-Sure, I'd be happy to guide you through deploying a service on k8s and scaling it. We'll use a simple Nginx server as an example. 
+This document guide you through deploying a service on k8s and scaling it. We'll use a simple Nginx server as an example. 
 
 **Step 1:** We'll start by creating a Deployment. Here's a sample YAML file to create a Deployment that runs an Nginx server:
 
